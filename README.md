@@ -34,12 +34,12 @@ Not sure of those details right now, but it would probably be the only input reg
 
 Functions:
 Calibrate: this should open a window so that modbus parameters can be changed and stored in the program as a default
-Poll: poll the modbus (this could be continous, or one shot, but it needs to be at a specific time when the motor itself if under tension and drawing current.
+Poll: poll the modbus (this could be continuous, or one shot, but it needs to be at a specific time when the motor itself if under tension and drawing current.
 Loadcell should be continuously polled, and displayed on the UI 5 times.a second
 Barcode: take in keyboard input of a barcode number in our inventory system, use Flex API to query the inventory system to return the serial number for the motor under test. Display this serial number on the UI, and place it into a specific field in the pdf we are modifying.
 pdf: there is a pdf that is the standard form we use, we just want to stick the data we are collecting into some of the fields on this pdf: 3 voltages, 3 currents, a serial number, a load cell number, serial number and time stamp.
 
-This pdf needs to be saved in the maintenance log in flex 9using the SPI) and it also needs to go to a folder in gogogle docs using a different API
+This pdf needs to be saved in the maintenance log in flex (using their API) and it also needs to go to a folder in our company goggle docs using a different API
 
 Need some sort of error handling
 
