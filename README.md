@@ -1,12 +1,12 @@
 # motorLoadTest
 RS485 to pdf data generation tool
-The goal of this project is to generate reports from data collected from RS485 modes devices
+The goal of this project is to generate reports from data collected from RS485 modbus devices
 
 
 Modbus calibration:
 
 Wave share RS485 to ETH is the server , it should pass the rs485 straight through. I was able to get data from the alpha20 to some of the modbus test programs available for windows, usually with a 30 day trial. 
-TCP to RTU modbus server is at 10.10.100.254 port 502 I have not been able to get a class c address to work across our network, so this currently assumes you are directly connected vis ethernet
+TCP to RTU modbus server is at 10.10.100.254 port 502 I have not been able to get a class c address to work across our network, so this currently assumes you are directly connected to a computer via ethernet
  
 
 alpha20A+ rules:
@@ -25,9 +25,11 @@ Device code:01
 Function code 04
 Start address high 00
 Start address low 0
-Number of registers: 12 means the high byte is 1 and the low byte is 4?
+Number of registers: 12 means the high byte is 1 and the low byte is 4? I'm not clear on this
+And then you send 2 crc words
 
-There is a load cell on its way, which we will also query to get 1 value.
+
+There is a load cell on its way, which we will also query to get 1 value for mass.
 Not sure of those details right now, but it would probably be the only input register, and perhaps the device id is hardcoded, in which case the alpha would move to a different device ID
 
 Functions:
