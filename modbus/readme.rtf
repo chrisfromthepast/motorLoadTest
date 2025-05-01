@@ -57,7 +57,16 @@ Number of registers: 12 means the high byte is 1 and the low byte is 4?\
 There is a load cell on its way, which we will also query to get 1 value.\
 Not sure of those details right now, but it would probably be the only input register, and perhaps the device id is hardcoded, in which case the alpha would move to a different device ID\
 \
-\outl0\strokewidth0 \
+\outl0\strokewidth0 Functions:\
+Calibrate: this should open a window so that modbus parameters can be changed and stored in the program as a default\
+Poll: poll the modbus (this could be continous, or one shot, but it needs to be at a specific time when the motor itself if under tension and drawing current.\
+Loadcell should be continuously polled, and displayed on the UI 5 times.a second\
+Barcode: take in keyboard input of a barcode number in our inventory system, use Flex API to query the inventory system to return the serial number for the motor under test. Display this serial number on the UI, and place it into a specific field in the pdf we are modifying.\
+pdf: there is a pdf that is the standard form we use, we just want to stick the data we are collecting into some of the fields on this pdf: 3 voltages, 3 currents, a serial number, a load cell number, serial number and time stamp.\
+\
+This pdf needs to be saved in the maintenance log in flex 9using the SPI) and it also needs to go to a folder in gogogle docs using a different API\
+\
+Need some sort of error handling\
 \pard\pardeftab720\partightenfactor0
 \cf0 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
