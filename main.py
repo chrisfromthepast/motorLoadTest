@@ -17,7 +17,7 @@ save_var = tk.IntVar()
 
 
 def open_file():
-    filepath = filedialog.askopenfilename(title="Select a File", filetypes=(("Text files", "*.txt"), ("All files", "*.*")))
+    filepath = filedialog.askopenfilename(title="Select a File", filetypes=(("Pdf Files", "*.pdf"), ("All files", "*.*")))
     if filepath:
         print(f"Selected file: {filepath}")
         # Perform actions with the selected file, e.g., read its contents
@@ -26,7 +26,7 @@ def open_file():
             print(content)
 
 def save_file():
-    filepath = filedialog.asksaveasfilename(title="Save As", defaultextension=".txt", filetypes=(("Text files", "*.txt"), ("All files", "*.*")))
+    filepath = filedialog.asksaveasfilename(title="Save As", defaultextension=".pdf", filetypes=(("PDF", "*.pdf")))
     if filepath:
         print(f"Saving to: {filepath}")
         # Perform actions to save data to the selected file
@@ -36,6 +36,7 @@ def save_file():
 
 
 def configure():
+    global ok
     print("configure Alpha pressed")
     top = Toplevel()
     top.title("Configuration Window")
