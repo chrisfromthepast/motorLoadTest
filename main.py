@@ -2,168 +2,168 @@
 
 import tkinter as tk
 
-async def main(cmdline=None):
-    """Combine setup and run."""
-    testclient = client_async.setup_async_client(
-        description="Run asynchronous client.",
-        cmdline=cmdline,
-        comm="tcp",  # Use TCP protocol
-        host="10.10.100.254",  # IP address of your Modbus TCP-to-RTU gateway
-        port=502,  # Default Modbus TCP port
-    )
-    await client_async.run_async_client(testclient, modbus_calls=run_async_calls)
+root = tk.Tk()
+root.config(bg="#E4E2E2")
+root.title("Main Window")
+root.geometry("920x600")
 
-def testMe():
-    print("test configA pressed")
+def configure():
+    global ok
+    print ("configure Alpha pressed")
+    top = Toplevel()  # Create a new window
+    # config_window.iconbitmap("c/docs/img/AVL.ico")  # Uncomment and fix the path if needed
+    top.title("Configuration Window")
+    ok = tk.Button(master=top, text="ok", command=top.destroy).pack()
 
-main = tk.Tk()
-main.config(bg="#E4E2E2")
-main.title("Main Window")
-main.geometry("911x596")
+def sample():
+    print ("sample pressed")
+    # pymodbus code to sample the alpha20 and display the results in the entry box
+    # pymodbus code to sample the loadcell and display the results in the entry box
 
-v2 = tk.Entry(master=main, text="V2")
+
+v2 = tk.Entry(master=root, text="V2")
 v2.config(bg="#fff", fg="#000")
 v2.place(x=1057, y=365, width=120, height=40)
 
-v3 = tk.Entry(master=main, text="V3")
+v3 = tk.Entry(master=root, text="V3")
 v3.config(bg="#fff", fg="#000")
 v3.place(x=1057, y=413, width=120, height=40)
 
-loadcell = tk.Button(master=main, text="Query")
+loadcell = tk.Button(master=root, text="Query")
 loadcell.config(bg="#E4E2E2", fg="#000")
 loadcell.place(x=1057, y=462, width=80, height=40)
 
-mass = tk.Entry(master=main, text="mass in lbs")
+mass = tk.Entry(master=root, text="mass in lbs")
 mass.config(bg="#fff", fg="#000")
 mass.place(x=1057, y=510, width=120, height=40)
 
-check_box = tk.Checkbutton(master=main, text="export.pdf")
+check_box = tk.Checkbutton(master=root, text="export.pdf")
 check_box.config(bg="#E4E2E2", fg="#000")
 check_box.select()
 check_box.place(x=1057, y=559, width=120, height=30)
 
 option_menu_options = ["last used","browse"]
 option_menu_var = tk.StringVar(value="browse")
-option_menu = tk.OptionMenu(main, option_menu_var, *option_menu_options)
+option_menu = tk.OptionMenu(root, option_menu_var, *option_menu_options)
 option_menu.config(bg="#E4E2E2", fg="#000")
 option_menu.place(x=1057, y=595, width=120, height=30)
 
-check_box1 = tk.Checkbutton(master=main, text="print")
+check_box1 = tk.Checkbutton(master=root, text="print")
 check_box1.config(bg="#E4E2E2", fg="#000")
 check_box1.select()
 check_box1.place(x=1057, y=632, width=120, height=30)
 
-alpha20_status = tk.Entry(master=main, text="alpha20 status")
+alpha20_status = tk.Entry(master=root, text="alpha20 status")
 alpha20_status.config(bg="#fff", fg="#000")
 alpha20_status.place(x=1057, y=668, width=120, height=40)
 
-entry = tk.Entry(master=main, text="placeholder text")
+entry = tk.Entry(master=root, text="placeholder text")
 entry.config(bg="#fff", fg="#000")
 entry.place(x=1057, y=716, width=120, height=40)
 
-entry1 = tk.Entry(master=main, text="placeholder text")
+entry1 = tk.Entry(master=root, text="placeholder text")
 entry1.config(bg="#fff", fg="#000")
 entry1.place(x=1057, y=765, width=120, height=40)
 
-entry2 = tk.Entry(master=main, text="placeholder text")
+entry2 = tk.Entry(master=root, text="placeholder text")
 entry2.config(bg="#fff", fg="#000")
 entry2.place(x=1057, y=813, width=120, height=40)
 
-loadcell_status = tk.Entry(master=main, text="loadcell status")
+loadcell_status = tk.Entry(master=root, text="loadcell status")
 loadcell_status.config(bg="#fff", fg="#000")
 loadcell_status.place(x=1057, y=862, width=120, height=40)
 
-alpha_20 = tk.Button(master=main, text="Query")
+alpha_20 = tk.Button(master=root, text="Query")
 alpha_20.config(bg="#E4E2E2", fg="#000")
 alpha_20.place(x=1057, y=910, width=80, height=40)
 
-v1 = tk.Entry(master=main, text="V1")
+v1 = tk.Entry(master=root, text="V1")
 v1.config(bg="#fff", fg="#000")
 v1.place(x=1057, y=960, width=120, height=40)
 
-v11 = tk.Entry(master=main, text="V1")
+v11 = tk.Entry(master=root, text="V1")
 v11.config(bg="#fff", fg="#000")
 v11.place(x=30, y=195, width=120, height=40)
 
-v21 = tk.Entry(master=main, text="V2")
+v21 = tk.Entry(master=root, text="V2")
 v21.config(bg="#fff", fg="#000")
 v21.place(x=30, y=288, width=120, height=40)
 
-v31 = tk.Entry(master=main, text="V3")
+v31 = tk.Entry(master=root, text="V3")
 v31.config(bg="#fff", fg="#000")
 v31.place(x=30, y=385, width=120, height=40)
 
-i1 = tk.Entry(master=main, text="I1")
+i1 = tk.Entry(master=root, text="I1")
 i1.config(bg="#fff", fg="#000")
 i1.place(x=200, y=195, width=120, height=40)
 
-i2 = tk.Entry(master=main, text="I2")
+i2 = tk.Entry(master=root, text="I2")
 i2.config(bg="#fff", fg="#000")
 i2.place(x=200, y=288, width=120, height=40)
 
-label = tk.Label(master=main, text="Voltage")
+label = tk.Label(master=root, text="Voltage")
 label.config(bg="#E4E2E2", fg="#000")
 label.place(x=45, y=150, width=80, height=40)
 
-label1 = tk.Label(master=main, text="Current")
+label1 = tk.Label(master=root, text="Current")
 label1.config(bg="#E4E2E2", fg="#000")
 label1.place(x=220, y=150, width=80, height=40)
 
-i3 = tk.Entry(master=main, text="I3")
+i3 = tk.Entry(master=root, text="I3")
 i3.config(bg="#fff", fg="#000")
 i3.place(x=200, y=385, width=120, height=40)
 
-button = tk.Button(master=main, text="ConfigureA", command=lambda: testMe())
+button = tk.Button(master=root, text="Configure Alpha", command=configure)
 button.config(bg="#E4E2E2", fg="#000")
-button.place(x=220, y=40, width=80, height=40)
+button.place(x=200, y=40, width=120, height=40)
 
-device_name = tk.Entry(master=main, text="status")
+device_name = tk.Entry(master=root, text="status")
 device_name.config(bg="#fff", fg="#000")
 device_name.place(x=200, y=107, width=120, height=40)
 
-alpha20 = tk.Button(master=main, text="Sample")
+alpha20 = tk.Button(master=root, text="Sample", command=sample)
 alpha20.config(bg="#E4E2E2", fg="#000")
 alpha20.place(x=45, y=75, width=80, height=40)
 
 option_menu1_options = ["last used","Browse"]
 option_menu1_var = tk.StringVar(value="Browse")
-option_menu1 = tk.OptionMenu(main, option_menu1_var, *option_menu1_options)
+option_menu1 = tk.OptionMenu(root, option_menu1_var, *option_menu1_options)
 option_menu1.config(bg="#E4E2E2", fg="#000")
 option_menu1.place(x=607, y=326, width=120, height=30)
 
-save = tk.Checkbutton(master=main, text="save.pdf")
+save = tk.Checkbutton(master=root, text="save.pdf")
 save.config(bg="#E4E2E2", fg="#000")
 save.select()
 save.place(x=426, y=346, width=120, height=30)
 
-print = tk.Checkbutton(master=main, text="print")
+print = tk.Checkbutton(master=root, text="print")
 print.config(bg="#E4E2E2", fg="#000")
 print.select()
 print.place(x=419, y=419, width=120, height=30)
 
-loadcell1 = tk.Entry(master=main, text="mass")
+loadcell1 = tk.Entry(master=root, text="mass")
 loadcell1.config(bg="#fff", fg="#000")
 loadcell1.place(x=688, y=250, width=120, height=40)
 
-loadcell2 = tk.Button(master=main, text="sample")
+loadcell2 = tk.Button(master=root, text="sample")
 loadcell2.config(bg="#E4E2E2", fg="#000")
 loadcell2.place(x=450, y=250, width=80, height=40)
 
-configure = tk.Button(master=main, text="configureL")
+configure = tk.Button(master=root, text="configureL")
 configure.config(bg="#E4E2E2", fg="#000")
 configure.place(x=575, y=250, width=80, height=40)
 
-datetime = tk.Entry(master=main, text="date/time")
+datetime = tk.Entry(master=root, text="date/time")
 datetime.config(bg="#fff", fg="#000")
 datetime.place(x=800, y=75, width=120, height=40)
 
-label2 = tk.Label(master=main, text="Loadcell")
+label2 = tk.Label(master=root, text="Loadcell")
 label2.config(bg="#E4E2E2", fg="#000")
 label2.place(x=575, y=200, width=80, height=40)
 
-entry3 = tk.Entry(master=main, text="serial number")
+entry3 = tk.Entry(master=root, text="serial number")
 entry3.config(bg="#fff", fg="#000")
 entry3.place(x=500, y=133, width=120, height=40)
 
 
-main.mainloop()
+root.mainloop()
