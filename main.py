@@ -14,6 +14,9 @@ root.geometry("950x600")
 export_var = tk.IntVar()
 print_var = tk.IntVar()
 save_var = tk.IntVar()
+#variables for pymodbus
+#ServerIP = 10.10.100.254
+#serverPort = 502
 
 
 def open_file():
