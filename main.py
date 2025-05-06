@@ -2,6 +2,8 @@
 
 import tkinter as tk
 from tkinter import Toplevel
+from tkinter import filedialog
+
 
 root = tk.Tk()
 root.config(bg="#E4E2E2")
@@ -12,6 +14,26 @@ root.geometry("950x600")
 export_var = tk.IntVar()
 print_var = tk.IntVar()
 save_var = tk.IntVar()
+
+
+def open_file():
+    filepath = filedialog.askopenfilename(title="Select a File", filetypes=(("Text files", "*.txt"), ("All files", "*.*")))
+    if filepath:
+        print(f"Selected file: {filepath}")
+        # Perform actions with the selected file, e.g., read its contents
+        with open(filepath, 'r') as file:
+            content = file.read()
+            print(content)
+
+def save_file():
+    filepath = filedialog.asksaveasfilename(title="Save As", defaultextension=".txt", filetypes=(("Text files", "*.txt"), ("All files", "*.*")))
+    if filepath:
+        print(f"Saving to: {filepath}")
+        # Perform actions to save data to the selected file
+        with open(filepath, 'w') as file:
+            file.write("Sample text to save.")
+
+
 
 def configure():
     print("configure Alpha pressed")
@@ -118,4 +140,11 @@ entry3 = tk.Entry(master=root, text="serial number")
 entry3.config(bg="#fff", fg="#000")
 entry3.place(x=500, y=133, width=120, height=40)
 
+open_button = tk.Button(root, text="Open File", command=open_file)
+open_button.pack()
+
+save_button = tk.Button(root, text="Save File", command=save_file)
+save_button.pack()
+
 root.mainloop()
+
