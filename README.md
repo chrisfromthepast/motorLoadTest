@@ -6,7 +6,7 @@ The goal of this project is to generate reports from data collected from RS485 m
 Modbus calibration:
 
 Wave share RS485 to ETH is the server , it should pass the rs485 straight through. I was able to get data from the alpha20 to some of the modbus test programs available for windows, usually with a 30 day trial. 
-TCP to RTU modbus server is at 10.10.100.254 port 502 I have not been able to get a class c address to work across our network, so this currently assumes you are directly connected to a computer via ethernet
+TCP to RTU modbus server is at 10.10.100.254 port 502 I have not been able to get a class c address (there is an addidional instance of this server at (192.68.13.91)) to work across our network, so this currently assumes you are directly connected to a computer via ethernet to the class a address
  
 
 alpha20A+ rules:
