@@ -12,16 +12,6 @@ writer = PdfWriter()
 writer.add_page(page)
 
 fields = reader.get_fields()
-print(fields)
-# Fill the form fields
-for field in fields:
-    print(field)
-    if field.get("/FT") == "/Btn":
-        # Check if the field is a button
-        print("Button field found:", field.get("/T"))
-    else:
-        # Handle other types of fields (e.g., text fields)
-        print("Text field found:", field.get("/T"))
 
 writer.append(reader)
 

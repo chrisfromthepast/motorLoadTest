@@ -10,8 +10,19 @@ reader = PdfReader(pdf_path)
 page = reader.pages[0]
 writer = PdfWriter()
 writer.add_page(page)
+writer.reattach_fields()
 
 fields = reader.get_fields()
+print("these are the available fields", fields)
+# Fill the form fields
+for field in fields:
+    print(field)
+    if field.get("/FT") == "/Btn":
+        # Check if the field is a button
+        print("Button field found:", field.get("/T"))
+    else:
+        # Handle other types of fields (e.g., text fields)
+        print("Text field found:", field.get("/T"))
 
 writer.append(reader)
 
