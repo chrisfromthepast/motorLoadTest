@@ -3,7 +3,15 @@
 import tkinter as tk
 from tkinter import Toplevel
 from tkinter import filedialog
+from pypdf import PdfReader
 import time
+
+# Add this import to use your Modbus reading function
+from clienttest import read_first_six_3000_parameters
+
+
+reader = PdfReader("form.pdf")
+fields = reader.get_fields()
 
 root = tk.Tk()
 root.config(bg="#E4E2E2")
@@ -18,6 +26,7 @@ ServerIP = tk.StringVar()
 #ServerPort = tk.StringVar()
 #ServerPort.set("502")
 #ServerIP.set(10.10.100.254)
+
 Serial = 0
 curr = time.ctime()
 print("Current time:", curr)
@@ -57,7 +66,24 @@ def configure():
 
 def sample():
     print("sample pressed")
-    # pymodbus code to sample the alpha20 and display the results in the entry box
+    # Call the Modbus function and update the entry boxes
+    params = read_first_six_3000_parameters('10.10.100.254')
+    if params:
+        v1.delete(0, 'end')
+        v1.insert(0, str(params["volts_1"]))
+        v2.delete(0, 'end')
+        v2.insert(0, str(params["volts_2"]))
+        v3.delete(0, 'end')
+        v3.insert(0, str(params["volts_3"]))
+        i1.delete(0, 'end')
+        i1.insert(0, str(params["current_1"]))
+        i2.delete(0, 'end')
+        i2.insert(0, str(params["current_2"]))
+        i3.delete(0, 'end')
+        i3.insert(0, str(params["current_3"]))
+    else:
+        print("Could not read all parameters.")
+
 def sample_load():
     print("sample loadcell pressed")
     # pymodbus code to sample the loadcell and display the results in the entry box
