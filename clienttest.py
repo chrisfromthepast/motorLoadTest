@@ -33,20 +33,21 @@ def read_first_six_3000_parameters(ip, unit=1):
     return params
 
 # Example usage:
-params = read_first_six_3000_parameters('10.10.100.254')
+if __name__ == "__main__":
+    params = read_first_six_3000_parameters('10.10.100.254')
 
-if params:
-    volts_1 = params["volts_1"]
-    volts_2 = params["volts_2"]
-    volts_3 = params["volts_3"]
-    current_1 = params["current_1"]
-    current_2 = params["current_2"]
-    current_3 = params["current_3"]
-    print(f"Volts 1: {volts_1}")
-    print(f"Volts 2: {volts_2}")
-    print(f"Volts 3: {volts_3}")
-    print(f"Current 1: {current_1}")
-    print(f"Current 2: {current_2}")
-    print(f"Current 3: {current_3}")
-else:
-    print("Could not read all parameters.")
+    if params:
+        volts_1 = params["volts_1"]
+        volts_2 = params["volts_2"]
+        volts_3 = params["volts_3"]
+        current_1 = params["current_1"]
+        current_2 = params["current_2"]
+        current_3 = params["current_3"]
+        print(f"Volts 1: {volts_1}")
+        print(f"Volts 2: {volts_2}")
+        print(f"Volts 3: {volts_3}")
+        print(f"Current 1: {current_1}")
+        print(f"Current 2: {current_2}")
+        print(f"Current 3: {current_3}")
+    else:
+        print("Could not read all parameters.")
