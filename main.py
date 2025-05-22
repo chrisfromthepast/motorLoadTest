@@ -3,24 +3,54 @@
 import tkinter as tk
 from tkinter import Toplevel, filedialog, messagebox
 import time
-try:
-    from pypdf import PdfReader
-    reader = PdfReader("form.pdf")
-    fields = reader.get_fields()
-except Exception as e:
-    # Show a Tkinter error window if PDF loading fails
-    root = tk.Tk()
-    root.withdraw()  # Hide the main window
-    messagebox.showerror("PDF Error", f"Failed to load or parse form.pdf:\n{e}")
-    root.destroy()
-    # Optionally, exit if PDF is required for the app to function
-    # import sys; sys.exit(1)
+
+root = tk.Tk()  # Always create the root window first
+
+pdf_path = "form.pdf"  # Default PDF path
+
+def load_pdf_fields():
+    global pdf_path
+    try:
+        from pypdf import PdfReader
+        reader = PdfReader(pdf_path)
+        fields = reader.get_fields()
+        return fields
+    except Exception as e:
+        # Do NOT destroy root or exit; just show error and allow user to configure PDF
+        messagebox.showerror("PDF Error", f"Failed to load or parse {pdf_path}:\n{e}")
+        return None
+
+def configure_pdf():
+    global pdf_path, fields
+    top = Toplevel(root)
+    top.title("Select PDF File")
+    top.geometry("400x120")
+    tk.Label(top, text="Current PDF:").pack(pady=5)
+    current_label = tk.Label(top, text=pdf_path)
+    current_label.pack()
+    def select_pdf():
+        global pdf_path, fields
+        file = filedialog.askopenfilename(title="Select PDF", filetypes=[("PDF Files", "*.pdf")])
+        if file:
+            pdf_path = file
+            current_label.config(text=pdf_path)
+            fields = load_pdf_fields()
+            if fields is not None:
+                messagebox.showinfo("PDF Loaded", f"Loaded fields from:\n{pdf_path}")
+            else:
+                messagebox.showerror("PDF Error", f"Failed to load fields from:\n{pdf_path}")
+    tk.Button(top, text="Browse...", command=select_pdf).pack(pady=10)
+    tk.Button(top, text="Close", command=top.destroy).pack()
 
 # Add this import to use Modbus reading function from clienttest
 from clienttest import read_first_six_3000_parameters
 
+# Add this import to use Modbus reading function from clienttest
+from clienttest import read_first_six_3000_parameters
 
-root = tk.Tk()
+fields = load_pdf_fields()
+# Do NOT exit if fields is None; allow user to select a PDF from the configuration window
+
 root.config(bg="#E4E2E2")
 root.title("Main Window")
 root.geometry("950x600")
@@ -212,5 +242,9 @@ open_button.pack()
 
 save_button = tk.Button(root, text="Save File", command=save_file)
 save_button.pack()
+
+# Add a button to open the PDF configuration window
+pdf_config_btn = tk.Button(root, text="Configure PDF", command=configure_pdf)
+pdf_config_btn.place(x=800, y=60, width=120, height=30)
 
 root.mainloop()
