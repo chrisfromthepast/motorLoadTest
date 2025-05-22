@@ -69,7 +69,7 @@ print_var = tk.IntVar()
 save_var = tk.IntVar()
 
 # Add a StringVar for Modbus IP so it can be set via tkinter
-modbus_ip_var = tk.StringVar(value="10.10.100.254")  # Default value
+modbus_ip_var = tk.StringVar(value="192.168.13.51")  # Default value
 
 # Fix: Define curr before using it for datetime_var
 curr = time.strftime("%Y-%m-%d %H:%M:%S")
