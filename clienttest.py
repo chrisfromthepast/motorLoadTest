@@ -1,5 +1,5 @@
 import struct
-from pymodbus.client.sync import ModbusTcpClient
+from pymodbus.client import ModbusTcpClient
 
 # Global variables for each parameter (first six 30000 registers)
 volts_1 = None
