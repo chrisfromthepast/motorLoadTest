@@ -9,7 +9,7 @@ import time
 from clienttest import read_first_six_3000_parameters
 
 
-reader = PdfReader("form.pdf")
+reader = PdfReader("E1.62.pdf")
 fields = reader.get_fields()
 
 root = tk.Tk()  # Always create the root window first
@@ -67,15 +67,13 @@ root.geometry("950x600")
 export_var = tk.IntVar()
 print_var = tk.IntVar()
 save_var = tk.IntVar()
-ServerIP = tk.StringVar()
-#ServerPort = tk.StringVar()
-#ServerPort.set("502")
-#ServerIP.set(10.10.100.254)
 
+# Add a StringVar for Modbus IP so it can be set via tkinter
+modbus_ip_var = tk.StringVar(value="10.10.100.254")  # Default value
 
-Serial = 0
-curr = time.ctime()
-print("Current time:", curr)
+# Fix: Define curr before using it for datetime_var
+curr = time.strftime("%Y-%m-%d %H:%M:%S")
+datetime_var = tk.StringVar(value=str(curr))  # Create a StringVar to hold the current time
 
 def open_file():
     filepath = filedialog.askopenfilename(title="Select a File", filetypes=(("PDF Files", "*.pdf"), ("All files", "*.*")))
@@ -113,7 +111,8 @@ def configure():
 def sample():
     print("sample pressed")
     try:
-        params = read_first_six_3000_parameters('10.10.100.254')
+        # Use the value from the modbus_ip_var
+        params = read_first_six_3000_parameters(modbus_ip_var.get())
         if params:
             v1.delete(0, 'end')
             v1.insert(0, str(params["volts_1"]))
@@ -218,7 +217,6 @@ config_loadcell = tk.Button(master=root, text="configureL", command=configure_lo
 config_loadcell.config(bg="#E4E2E2", fg="#000")
 config_loadcell.place(x=575, y=250, width=80, height=40)
 
-datetime_var = tk.StringVar(value=str(curr))  # Create a StringVar to hold the current time
 datetime = tk.Entry(master=root, textvariable=datetime_var)  # Use textvariable instead of text
 datetime.bind("<FocusIn>", lambda event: datetime.delete(0, tk.END))  # Clear the entry when focused
 datetime.config(bg="#fff", fg="#000")
@@ -255,5 +253,11 @@ save_button.pack()
 # Add a button to open the PDF configuration window
 pdf_config_btn = tk.Button(root, text="Configure PDF", command=configure_pdf)
 pdf_config_btn.place(x=800, y=60, width=120, height=30)
+
+# Add an entry field for the Modbus IP address in your UI
+modbus_ip_label = tk.Label(root, text="Modbus IP")
+modbus_ip_label.place(x=45, y=10, width=80, height=30)
+modbus_ip_entry = tk.Entry(root, textvariable=modbus_ip_var)
+modbus_ip_entry.place(x=130, y=10, width=150, height=30)
 
 root.mainloop()
