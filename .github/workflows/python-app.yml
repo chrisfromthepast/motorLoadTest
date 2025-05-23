@@ -44,15 +44,8 @@ jobs:
         pyinstaller --onefile --windowed main.py > buildlog.txt 2>&1
 
     - name: Upload exe artifact
-      if: success() && exists('dist/main.exe')
+      if: success()
       uses: actions/upload-artifact@v4
       with:
         name: motorLoadTest-exe
         path: dist/main.exe
-
-    - name: Upload PyInstaller build log
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: pyinstaller-buildlog
-        path: buildlog.txt
