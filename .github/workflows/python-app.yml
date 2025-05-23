@@ -39,9 +39,17 @@ jobs:
         pytest
     - name: Build exe with PyInstaller
       run: |
-        pyinstaller --onefile main.py
+        pyinstaller --onefile --windowed main.py > buildlog.txt 2>&1 || (type buildlog.txt && exit 1)
+    - name: List dist folder
+      run: |
+        dir dist
     - name: Upload exe artifact
       uses: actions/upload-artifact@v3
       with:
         name: motorLoadTest-exe
         path: dist/main.exe
+    - name: Upload PyInstaller build log
+      uses: actions/upload-artifact@v3
+      with:
+        name: pyinstaller-buildlog
+        path: buildlog.txt

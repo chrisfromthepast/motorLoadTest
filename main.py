@@ -274,4 +274,11 @@ modbus_ip_label.place(x=45, y=10, width=80, height=30)
 modbus_ip_entry = tk.Entry(root, textvariable=modbus_ip_var)
 modbus_ip_entry.place(x=130, y=10, width=150, height=30)
 
-root.mainloop()
+if __name__ == "__main__":
+    try:
+        root.mainloop()
+    except Exception as e:
+        import traceback
+        with open("error.log", "w") as f:
+            f.write(traceback.format_exc())
+        messagebox.showerror("Fatal Error", f"An unexpected error occurred:\n{e}\nSee error.log for details.")
