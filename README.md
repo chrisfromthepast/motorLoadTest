@@ -44,4 +44,19 @@ This pdf needs to be saved in the maintenance log in flex (using their API) and 
 Need some sort of error handling
 
 
-The reports already exist as .pdf’s, so the print function needs to modify the pdf, add values from memory 
+The reports already exist as .pdf’s, so the print function needs to modify the pdf, add values from memory
+
+## Python Version
+
+This project requires **Python 3.8**.  
+Please ensure you are using Python 3.8 when creating your virtual environment or running the code.
+
+## Creating a Python 3.8 Virtual Environment
+
+1. Delete any existing `venv` folder.
+2. Run: `python3.8 -m venv venv`
+3. Activate the environment and install requirements:
+   ```
+   venv\Scripts\activate
+   pip install -r requirements.txt
+   ```
