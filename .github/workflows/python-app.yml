@@ -44,12 +44,12 @@ jobs:
       run: |
         dir dist
     - name: Upload exe artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: motorLoadTest-exe
         path: dist/main.exe
     - name: Upload PyInstaller build log
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: pyinstaller-buildlog
         path: buildlog.txt

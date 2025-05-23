@@ -60,3 +60,6 @@ Please ensure you are using Python 3.8 when creating your virtual environment or
    venv\Scripts\activate
    pip install -r requirements.txt
    ```
+to build yerself
+
+the exe i built using pyinstaller --onefile --windowed main.py
