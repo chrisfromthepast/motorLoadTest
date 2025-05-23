@@ -181,9 +181,20 @@ congif_alpha = tk.Button(master=root, text="Configure Alpha", command=configure)
 congif_alpha.config(bg="#E4E2E2", fg="#000")
 congif_alpha.place(x=200, y=40, width=120, height=40)
 
-device_name = tk.Entry(master=root, text="status")
-device_name.config(bg="#fff", fg="#000")
-device_name.place(x=200, y=107, width=120, height=40)
+# Replace the old status entry with a Device Owner field
+
+# Add a global StringVar for DeviceOwner
+DeviceOwner = tk.StringVar(value="")
+
+# Add a label for Device Owner
+device_owner_label = tk.Label(master=root, text="Device Owner")
+device_owner_label.config(bg="#E4E2E2", fg="#000")
+device_owner_label.place(x=80, y=107, width=110, height=40)
+
+# Add an entry for Device Owner
+device_owner_entry = tk.Entry(master=root, textvariable=DeviceOwner)
+device_owner_entry.config(bg="#fff", fg="#000")
+device_owner_entry.place(x=200, y=107, width=120, height=40)
 
 sample_alpha = tk.Button(master=root, text="Sample", command=sample)
 sample_alpha.config(bg="#E4E2E2", fg="#000")
