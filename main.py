@@ -115,21 +115,35 @@ def sample():
         params = read_first_six_3000_parameters(modbus_ip_var.get())
         if params:
             v1.delete(0, 'end')
-            v1.insert(0, str(params["volts_1"]))
+            v1.insert(0, str(params.get("volts_1", "")))
             v2.delete(0, 'end')
-            v2.insert(0, str(params["volts_2"]))
+            v2.insert(0, str(params.get("volts_2", "")))
             v3.delete(0, 'end')
-            v3.insert(0, str(params["volts_3"]))
+            v3.insert(0, str(params.get("volts_3", "")))
             i1.delete(0, 'end')
-            i1.insert(0, str(params["current_1"]))
+            i1.insert(0, str(params.get("current_1", "")))
             i2.delete(0, 'end')
-            i2.insert(0, str(params["current_2"]))
+            i2.insert(0, str(params.get("current_2", "")))
             i3.delete(0, 'end')
-            i3.insert(0, str(params["current_3"]))
+            i3.insert(0, str(params.get("current_3", "")))
         else:
-            messagebox.showerror("Modbus Error", "Could not read all parameters.")
+            # Clear fields if params is empty (connection failed or no data)
+            v1.delete(0, 'end')
+            v2.delete(0, 'end')
+            v3.delete(0, 'end')
+            i1.delete(0, 'end')
+            i2.delete(0, 'end')
+            i3.delete(0, 'end')
+            messagebox.showerror("Modbus Error", "Could not read all parameters or no Modbus connection.")
     except Exception as e:
-        messagebox.showerror("Modbus Connection Error", f"Failed to connect to Modbus device:\n{e}")
+        # Catch any unexpected exceptions and show an error, but do not crash
+        v1.delete(0, 'end')
+        v2.delete(0, 'end')
+        v3.delete(0, 'end')
+        i1.delete(0, 'end')
+        i2.delete(0, 'end')
+        i3.delete(0, 'end')
+        messagebox.showerror("Modbus Exception", f"An error occurred:\n{e}")
 
 def sample_load():
     print("sample loadcell pressed")
@@ -271,4 +285,11 @@ modbus_ip_label.place(x=45, y=10, width=80, height=30)
 modbus_ip_entry = tk.Entry(root, textvariable=modbus_ip_var)
 modbus_ip_entry.place(x=130, y=10, width=150, height=30)
 
-root.mainloop()
+if __name__ == "__main__":
+    try:
+        root.mainloop()
+    except Exception as e:
+        import traceback
+        with open("error.log", "w") as f:
+            f.write(traceback.format_exc())
+        messagebox.showerror("Fatal Error", f"An unexpected error occurred:\n{e}\nSee error.log for details.")
