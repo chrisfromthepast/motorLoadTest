@@ -6,6 +6,11 @@ def read_first_six_3000_parameters(ip, unit=1):
     Reads the first six 3X (input) parameters, where each parameter is stored in two consecutive 16-bit registers.
     Returns a dictionary with parameter names and their 32-bit values.
     """
+
+    #break out the globals
+    #tick through 3000 times,  check aray size for error checking
+    #choose a value frfom the array we build
+
     client = ModbusTcpClient(ip)
     try:
         if not client.connect():
@@ -30,22 +35,3 @@ def read_first_six_3000_parameters(ip, unit=1):
         return {}
     finally:
         client.close()
-
-# Example usage:
-if __name__ == "__main__":
-    params = read_first_six_3000_parameters("10.10.100.254")
-    if params:
-        volts_1 = params["volts_1"]
-        volts_2 = params["volts_2"]
-        volts_3 = params["volts_3"]
-        current_1 = params["current_1"]
-        current_2 = params["current_2"]
-        current_3 = params["current_3"]
-        print(f"Volts 1: {volts_1}")
-        print(f"Volts 2: {volts_2}")
-        print(f"Volts 3: {volts_3}")
-        print(f"Current 1: {current_1}")
-        print(f"Current 2: {current_2}")
-        print(f"Current 3: {current_3}")
-    else:
-        print("Could not read all parameters.")
