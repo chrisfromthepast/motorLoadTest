@@ -50,12 +50,6 @@ def configure_pdf():
     tk.Button(top, text="Browse...", command=select_pdf).pack(pady=10)
     tk.Button(top, text="Close", command=top.destroy).pack()
 
-# Add this import to use Modbus reading function from clienttest
-from clienttest import read_first_six_3000_parameters
-
-# Add this import to use Modbus reading function from clienttest
-from clienttest import read_first_six_3000_parameters
-
 fields = load_pdf_fields()
 # Do NOT exit if fields is None; allow user to select a PDF from the configuration window
 
