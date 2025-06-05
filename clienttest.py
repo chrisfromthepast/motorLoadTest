@@ -1,4 +1,5 @@
 import struct
+import time
 from pymodbus.client.sync import ModbusTcpClient
 
 def read_first_six_3000_parameters(ip, unit=1):
@@ -7,31 +8,63 @@ def read_first_six_3000_parameters(ip, unit=1):
     Returns a dictionary with parameter names and their 32-bit values.
     """
 
-    #break out the globals
-    #tick through 3000 times,  check aray size for error checking
-    #choose a value frfom the array we build
+    # attempt to connect to Waveshare
+    try: 
+        client = ModbusTcpClient(ip)
+        client.connect()
 
-    client = ModbusTcpClient(ip)
-    try:
-        if not client.connect():
-            print(f"Connection to {ip} failed.")
-            return {}
-        result = client.read_input_registers(0, 12, unit=unit)
-        if not result or not hasattr(result, "registers") or result.registers is None or len(result.registers) != 12:
-            print(f"Read failed: {result}")
-            return {}
-        params = {}
+    except:
+        print(f"Connection to {ip} failed.")
+        return {}
+
+    # try to read registers
+    try:      
+        # set list of parameters to measure
         names = ["volts_1", "volts_2", "volts_3", "current_1", "current_2", "current_3"]
-        for i, name in enumerate(names):
-            high = result.registers[i*2]
-            low = result.registers[i*2+1]
-            raw = (high << 16) | low
-            bytes_ = raw.to_bytes(4, byteorder='big')
-            value = struct.unpack('>f', bytes_)[0]
-            params[name] = value
-        return params
+
+        # declare empty dictionary to house register read results
+        params_raw = {}
+        
+        # declare empty dictionary with max values
+        params_max = {}
+
+        # create loop to read Modbus 15 times in 3 secs
+        for i in range(15):
+
+            # store registers from Modbus
+            result = client.read_input_registers(0, 12, unit=unit)
+
+            # check if result retrieved valid response
+            if not result or not hasattr(result, "registers") or result.registers is None or len(result.registers) != 12:
+                print(f"Read failed: {result}")
+                return {}
+
+            # iterate over names list and push results to params_raw dictionary
+            for j, name in enumerate(names):
+                high = result.registers[j * 2]
+                low = result.registers[j * 2 + 1]
+                raw = (high << 16) | low
+                bytes_ = raw.to_bytes(4, byteorder='big')
+                value = struct.unpack('>f', bytes_)[0]
+
+                # check if params_raw[name] exists. If not create it or append value
+                if params_raw[name]: 
+                    params_raw[name].append(value)
+                else:
+                    params_raw[name] = [value]
+
+            # put program to sleep for 200ms
+            time.sleep(0.2)
+
+        # populate params_max dictionary with largest element in key list
+        for key, value in params_raw.items():
+            params_max.update({ key : max(value) })
+
+        return params_max
+    
     except Exception as e:
         print(f"Exception during Modbus read: {e}")
         return {}
+    
     finally:
         client.close()
