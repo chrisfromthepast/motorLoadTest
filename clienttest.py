@@ -1,6 +1,6 @@
 import struct
 import time
-from pymodbus.client.sync import ModbusTcpClient
+from pymodbus.client import ModbusTcpClient
 
 def read_first_six_3000_parameters(ip, unit=1):
     """
