@@ -2,7 +2,8 @@
 
 import tkinter as tk
 from tkinter import Toplevel, filedialog, messagebox
-#from pypdf import PdfReader
+import ttkbootstrap as ttk
+from ttkbootstrap.constants import *
 import time
 
 # Add this import to use your Modbus reading function
@@ -12,7 +13,7 @@ from clienttest import read_first_six_3000_parameters
 #reader = PdfReader("E1.62.pdf")
 #fields = reader.get_fields()
 
-root = tk.Tk()  # Always create the root window first
+root = ttk.Window(themename="darkly")  # Always create the root window first
 
 #pdf_path = "form.pdf"  # Default PDF path
 
@@ -53,8 +54,8 @@ root = tk.Tk()  # Always create the root window first
 # fields = load_pdf_fields()
 # Do NOT exit if fields is None; allow user to select a PDF from the configuration window
 
-root.config(bg="#E4E2E2")
-root.title("Main Window")
+# root.config(bg="#E4E2E2")
+root.title("AVL Motor Load Tester")
 root.geometry("950x600")
 
 # Create variables for checkbuttons
@@ -154,39 +155,30 @@ def Getbarcode():
     #return the serial number to the entry box and save as a variable serial 
 
 v1 = tk.Entry(master=root, text="V1")
-v1.config(bg="#fff", fg="#000")
 v1.place(x=30, y=195, width=120, height=40)
 
 v2 = tk.Entry(master=root, text="V2")
-v2.config(bg="#fff", fg="#000")
 v2.place(x=30, y=288, width=120, height=40)
 
 v3 = tk.Entry(master=root, text="V3")
-v3.config(bg="#fff", fg="#000")
 v3.place(x=30, y=385, width=120, height=40)
 
 i1 = tk.Entry(master=root, text="I1")
-i1.config(bg="#fff", fg="#000")
 i1.place(x=200, y=195, width=120, height=40)
 
 i2 = tk.Entry(master=root, text="I2")
-i2.config(bg="#fff", fg="#000")
 i2.place(x=200, y=288, width=120, height=40)
 
 i3 = tk.Entry(master=root, text="I3")
-i3.config(bg="#fff", fg="#000")
 i3.place(x=200, y=385, width=120, height=40)
 
 label = tk.Label(master=root, text="Voltage")
-label.config(bg="#E4E2E2", fg="#000")
 label.place(x=45, y=150, width=80, height=40)
 
 label1 = tk.Label(master=root, text="Current")
-label1.config(bg="#E4E2E2", fg="#000")
 label1.place(x=220, y=150, width=80, height=40)
 
 congif_alpha = tk.Button(master=root, text="Configure Alpha", command=configure)
-congif_alpha.config(bg="#E4E2E2", fg="#000")
 congif_alpha.place(x=200, y=40, width=120, height=40)
 
 # Replace the old status entry with a Device Owner field
@@ -196,22 +188,18 @@ DeviceOwner = tk.StringVar(value="")
 
 # Add a label for Device Owner
 device_owner_label = tk.Label(master=root, text="Device Owner")
-device_owner_label.config(bg="#E4E2E2", fg="#000")
 device_owner_label.place(x=80, y=107, width=110, height=40)
 
 # Add an entry for Device Owner
 device_owner_entry = tk.Entry(master=root, textvariable=DeviceOwner)
-device_owner_entry.config(bg="#fff", fg="#000")
 device_owner_entry.place(x=200, y=107, width=120, height=40)
 
 sample_alpha = tk.Button(master=root, text="Sample", command=sample)
-sample_alpha.config(bg="#E4E2E2", fg="#000")
 sample_alpha.place(x=45, y=75, width=80, height=40)
 
 option_menu1_options = ["last used","Browse"]
 option_menu1_var = tk.StringVar(value="Browse")
 option_menu1 = tk.OptionMenu(root, option_menu1_var, *option_menu1_options)
-option_menu1.config(bg="#E4E2E2", fg="#000")
 option_menu1.place(x=607, y=326, width=120, height=30)
 
 # savePdf = tk.Checkbutton(master=root, text="save.pdf", variable=save_var)
@@ -220,47 +208,38 @@ option_menu1.place(x=607, y=326, width=120, height=30)
 # savePdf.place(x=426, y=346, width=120, height=30)
 
 print_checkbox = tk.Checkbutton(master=root, text="print", variable=print_var)
-print_checkbox.config(bg="#E4E2E2", fg="#000")
 print_checkbox.select()
 print_checkbox.place(x=419, y=419, width=120, height=30)
 
 mass = tk.Entry(master=root, text="mass")
-mass.config(bg="#fff", fg="#000")
 mass.place(x=688, y=250, width=120, height=40)
 
 sample_loadcell = tk.Button(master=root, text="sample", command=sample_load)
-sample_loadcell.config(bg="#E4E2E2", fg="#000")
 sample_loadcell.place(x=450, y=250, width=80, height=40)
 
 config_loadcell = tk.Button(master=root, text="configureL", command=configure_loadcell)
-config_loadcell.config(bg="#E4E2E2", fg="#000")
 config_loadcell.place(x=575, y=250, width=80, height=40)
 
 datetime = tk.Entry(master=root, textvariable=datetime_var)  # Use textvariable instead of text
 datetime.bind("<FocusIn>", lambda event: datetime.delete(0, tk.END))  # Clear the entry when focused
-datetime.config(bg="#fff", fg="#000")
 datetime.place(x=800, y=10, width=120, height=40)
 
 serial_label = tk.Label(root, text="serial number")
 serial_label.place(x=720, y=75, width=120, height=40)
 
 serial_entry = tk.Entry(master=root, text="serial number")
-serial_entry.config(bg="#fff", fg="#000")
 serial_entry.place(x=800, y=75, width=120, height=40)
 
 barcode_label = tk.Label(root, text="barcode")
 barcode_label.place(x=720, y=45, width=120, height=40)
 
 barcode = tk.Entry(master=root, text="barcode")
-barcode.config(bg="#fff", fg="#000")
 barcode.place(x=800, y=45, width=120, height=40)
 
 label2 = tk.Label(master=root, text="Loadcell")
-label2.config(bg="#E4E2E2", fg="#000")
 label2.place(x=575, y=200, width=80, height=40)
 
 entry3 = tk.Entry(master=root, text="serial number")
-entry3.config(bg="#fff", fg="#000")
 entry3.place(x=500, y=133, width=120, height=40)
 
 open_button = tk.Button(root, text="Open File", command=open_file)
