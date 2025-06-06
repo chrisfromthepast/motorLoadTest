@@ -14,6 +14,8 @@ from clienttest import read_first_six_3000_parameters
 #fields = reader.get_fields()
 
 root = ttk.Window(themename="darkly")  # Always create the root window first
+mainframe = ttk.Frame(root).grid(column=0, row=0)
+
 
 #pdf_path = "form.pdf"  # Default PDF path
 
@@ -154,6 +156,15 @@ def Getbarcode():
     #send the barcode number
     #return the serial number to the entry box and save as a variable serial 
 
+# Add an entry field for the Modbus IP address in your UI
+modbus_ip_label = tk.Label(root, text="Modbus IP")
+modbus_ip_label.place(x=45, y=10, width=80, height=30)
+modbus_ip_entry = tk.Entry(root, textvariable=modbus_ip_var)
+modbus_ip_entry.place(x=130, y=10, width=150, height=30)
+
+label = tk.Label(master=root, text="Voltage")
+label.place(x=45, y=150, width=80, height=40)
+
 v1 = tk.Entry(master=root, text="V1")
 v1.place(x=30, y=195, width=120, height=40)
 
@@ -162,6 +173,10 @@ v2.place(x=30, y=288, width=120, height=40)
 
 v3 = tk.Entry(master=root, text="V3")
 v3.place(x=30, y=385, width=120, height=40)
+
+
+label1 = tk.Label(master=root, text="Current")
+label1.place(x=220, y=150, width=80, height=40)
 
 i1 = tk.Entry(master=root, text="I1")
 i1.place(x=200, y=195, width=120, height=40)
@@ -172,11 +187,6 @@ i2.place(x=200, y=288, width=120, height=40)
 i3 = tk.Entry(master=root, text="I3")
 i3.place(x=200, y=385, width=120, height=40)
 
-label = tk.Label(master=root, text="Voltage")
-label.place(x=45, y=150, width=80, height=40)
-
-label1 = tk.Label(master=root, text="Current")
-label1.place(x=220, y=150, width=80, height=40)
 
 congif_alpha = tk.Button(master=root, text="Configure Alpha", command=configure)
 congif_alpha.place(x=200, y=40, width=120, height=40)
@@ -252,11 +262,6 @@ save_button.pack()
 # pdf_config_btn = tk.Button(root, text="Configure PDF", command=configure_pdf)
 # pdf_config_btn.place(x=800, y=60, width=120, height=30)
 
-# Add an entry field for the Modbus IP address in your UI
-modbus_ip_label = tk.Label(root, text="Modbus IP")
-modbus_ip_label.place(x=45, y=10, width=80, height=30)
-modbus_ip_entry = tk.Entry(root, textvariable=modbus_ip_var)
-modbus_ip_entry.place(x=130, y=10, width=150, height=30)
 
 if __name__ == "__main__":
     try:
