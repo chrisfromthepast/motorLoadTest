@@ -22,6 +22,7 @@ class PDFTemplateApp(QWidget):
 
         # create input fields
         self.modbus_ip = QLineEdit(text="192.168.13.51")
+        self.tester_input = QLineEdit()
         self.owner_input = QLineEdit()
         self.address_input = QLineEdit()
         self.hoist_desc_input = QLineEdit()
@@ -52,9 +53,9 @@ class PDFTemplateApp(QWidget):
         overload_layout.addWidget(self.overload_no)
 
 
-
         # Add input fields to the layout with labels
         form_layout.addRow("Modbus IP:", self.modbus_ip)
+        form_layout.addRow("Tester:", self.tester_input)
         form_layout.addRow("Owner:", self.owner_input)
         form_layout.addRow("Address:", self.address_input)
         form_layout.addRow("Hoist Description:", self.hoist_desc_input)
@@ -89,11 +90,11 @@ class PDFTemplateApp(QWidget):
         print("Test Running")
 
         params = read_first_six_3000_parameters(self.modbus_ip.text())
-
+        
         if params:
-            self.actual_i_p1_input.setText(params.get("current_1"))
-            self.actual_i_p2_input.setText(params.get("current_2"))
-            self.actual_i_p3_input.setText(params.get("current_3"))
+            self.actual_i_p1_input.setText("{:.2f}".format(params.get("current_1")))
+            self.actual_i_p2_input.setText("{:.2f}".format(params.get("current_2")))
+            self.actual_i_p3_input.setText("{:.2f}".format(params.get("current_3")))
 
         else:
             QMessageBox.warning(self, "Modbus Error", "Could not read all parameters or no Modbus connection.")
@@ -101,6 +102,7 @@ class PDFTemplateApp(QWidget):
 
     def fill_pdf_template(self):
         owner = self.owner_input.text()
+        tester = self.tester_input.text()
         address = self.address_input.text()
         hoist_desc = self.hoist_desc_input.text()
         manufacturer = self.manufacturer_input.text()
@@ -129,7 +131,7 @@ class PDFTemplateApp(QWidget):
             return
 
         # Select save location
-        save_path, _ = QFileDialog.getSaveFileName(self, "Save Filled PDF", f"{owner}_load_test_report.pdf", "PDF Files (*.pdf)")
+        save_path, _ = QFileDialog.getSaveFileName(self, "Save Filled PDF", f"{serial_no}_load_test_report.pdf", "PDF Files (*.pdf)")
         if not save_path:
             return
 
@@ -141,6 +143,8 @@ class PDFTemplateApp(QWidget):
                 for field in page.widgets():
                     if field.field_name == "owner":
                         field.field_value = owner
+                    elif field.field_name == "tester":
+                        field.field_value = tester
                     elif field.field_name == "address":
                         field.field_value = address
                     elif field.field_name == "hoist_desc":
@@ -189,6 +193,7 @@ class PDFTemplateApp(QWidget):
 
             # Clear fields after save
             self.owner_input.clear()
+            self.tester_input.clear()
             self.address_input.clear()
             self.hoist_desc_input.clear()
             self.manufacturer_input.clear()
