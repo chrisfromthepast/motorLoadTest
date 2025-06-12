@@ -1,1 +1,2 @@
 pymodbus==2.5.3  # Required for clienttest.py (uses pymodbus.client.sync)
+PySide6.QtWidgets
