@@ -88,19 +88,15 @@ class PDFTemplateApp(QWidget):
     def test_load(self):
         print("Test Running")
 
-        # params = read_first_six_3000_parameters(self.modbus_ip.text())
-        
-        self.actual_i_p1_input.setText("5.0")
-        self.actual_i_p2_input.setText("5.4")
-        self.actual_i_p3_input.setText("5.6")
+        params = read_first_six_3000_parameters(self.modbus_ip.text())
 
-        # if params:
-        #     self.actual_i_p1_input.setText(params.get("current_1"))
-        #     self.actual_i_p2_input.setText(params.get("current_2"))
-        #     self.actual_i_p3_input.setText(params.get("current_3"))
+        if params:
+            self.actual_i_p1_input.setText(params.get("current_1"))
+            self.actual_i_p2_input.setText(params.get("current_2"))
+            self.actual_i_p3_input.setText(params.get("current_3"))
 
-        # else:
-        #     QMessageBox.warning(self, "Modbus Error", "Could not read all parameters or no Modbus connection.")
+        else:
+            QMessageBox.warning(self, "Modbus Error", "Could not read all parameters or no Modbus connection.")
 
 
     def fill_pdf_template(self):
