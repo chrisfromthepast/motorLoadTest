@@ -2,7 +2,7 @@ import struct
 import time
 from pymodbus.client import ModbusTcpClient
 
-def read_first_six_3000_parameters(ip, unit=1):
+def read_first_six_3000_parameters(ip):
     """
     Reads the first six 3X (input) parameters, where each parameter is stored in two consecutive 16-bit registers.
     Returns a dictionary with parameter names and their 32-bit values.
@@ -32,7 +32,7 @@ def read_first_six_3000_parameters(ip, unit=1):
         for i in range(15):
 
             # store registers from Modbus
-            result = client.read_input_registers(0, 12, unit=unit)
+            result = client.read_input_registers(0, count=12)
 
             # check if result retrieved valid response
             if not result or not hasattr(result, "registers") or result.registers is None or len(result.registers) != 12:
@@ -48,11 +48,8 @@ def read_first_six_3000_parameters(ip, unit=1):
                 value = struct.unpack('>f', bytes_)[0]
 
                 # check if params_raw[name] exists. If not create it or append value
-                if params_raw[name]: 
-                    params_raw[name].append(value)
-                else:
-                    params_raw[name] = [value]
-
+                params_raw.setdefault(name, []).append(value)
+                
             # put program to sleep for 200ms
             time.sleep(0.2)
 
