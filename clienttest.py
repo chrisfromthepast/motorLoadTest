@@ -2,7 +2,7 @@ import struct
 import time
 from pymodbus.client import ModbusTcpClient
 
-def read_first_six_3000_parameters(ip, unit=1):
+def read_first_six_3000_parameters(ip):
     """
     Reads the first six 3X (input) parameters, where each parameter is stored in two consecutive 16-bit registers.
     Returns a dictionary with parameter names and their 32-bit values.
