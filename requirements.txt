@@ -1,3 +1,3 @@
 pymodbus  # Required for clienttest.py (uses pymodbus.client.sync)
-PySide6.QtWidgets
+PySide6
 fitz
