@@ -1,3 +1,9 @@
+This project is depreciated. please go to 
+
+https://github.com/OMahoneyM/Hoist-Load-Tester
+
+
+
 # motorLoadTest
 RS485 to pdf data generation tool
 The goal of this project is to generate reports from data collected from RS485 modbus devices
@@ -27,39 +33,3 @@ Start address high 00
 Start address low 0
 Number of registers: 12 means the high byte is 1 and the low byte is 4? I'm not clear on this
 And then you send 2 crc words
-
-
-There is a load cell on its way, which we will also query to get 1 value for mass.
-Not sure of those details right now, but it would probably be the only input register, and perhaps the device id is hardcoded, in which case the alpha would move to a different device ID
-
-Functions:
-Calibrate: this should open a window so that modbus parameters can be changed and stored in the program as a default
-Poll: poll the modbus (this could be continuous, or one shot, but it needs to be at a specific time when the motor itself if under tension and drawing current.
-Loadcell should be continuously polled, and displayed on the UI 5 times.a second
-Barcode: take in keyboard input of a barcode number in our inventory system, use Flex API to query the inventory system to return the serial number for the motor under test. Display this serial number on the UI, and place it into a specific field in the pdf we are modifying.
-pdf: there is a pdf that is the standard form we use, we just want to stick the data we are collecting into some of the fields on this pdf: 3 voltages, 3 currents, a serial number, a load cell number, serial number and time stamp.
-
-This pdf needs to be saved in the maintenance log in flex (using their API) and it also needs to go to a folder in our company goggle docs using a different API
-
-Need some sort of error handling
-
-
-The reports already exist as .pdf’s, so the print function needs to modify the pdf, add values from memory
-
-## Python Version
-
-This project requires **Python 3.8**.  
-Please ensure you are using Python 3.8 when creating your virtual environment or running the code.
-
-## Creating a Python 3.8 Virtual Environment
-
-1. Delete any existing `venv` folder.
-2. Run: `python3.8 -m venv venv`
-3. Activate the environment and install requirements:
-   ```
-   venv\Scripts\activate
-   pip install -r requirements.txt
-   ```
-to build yerself
-
-the exe i built using pyinstaller --onefile --windowed main.py
